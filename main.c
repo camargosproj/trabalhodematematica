@@ -1,14 +1,54 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <math.h>
-int max = 20;
+int ordemMaxima = 20;
 
-void mostrarMatriz(int matriz[][max], int ordem);
-int det(int matriz[][max], int ordem);
-int cofator(int matriz[][max], int ordem, int linha, int coluna);
+void mostrarMatriz(int matriz[][ordemMaxima], int ordem);
+int det(int matriz[][ordemMaxima], int ordem);
+int calcularCofator(int matriz[][ordemMaxima], int ordem, int linha, int coluna);
+bool menu();
+void receberElementos();
+void matrizesOrdem(int ordem);
 
-int calcularCofator(int matriz[][max],int ordem,int linha,int coluna){
-  int matrizCofator[max][max];
+int main(void) {
+  printf("\e[1;1H\e[2J");    
+  while(true){
+    if(menu() == false){
+      break;
+    } 
+
+  }
+  return 0;
+}
+
+bool menu(){
+  int op;
+  printf("Digite o número do que você gostaria de fazer:\n");
+  printf("1 - Multiplica Matriz de ordem 2\n");
+  printf("2 - Multiplica Matriz de Ordem 3\n");
+  printf("3 - Calcular Determinante:\n");
+  printf("4 - Sair:\n");
+  scanf("%d",&op);
+
+  if(op == 1){
+    matrizesOrdem(2);
+  }else if(op == 2){
+    matrizesOrdem(3);
+  }else if(op == 3){
+    receberElementos();
+  } else if(op == 4){
+    return false;
+  }else{
+        printf("\e[1;1H\e[2J");
+        printf("Entrada invalida!!\n");
+        menu();
+    }  
+
+}
+
+
+int calcularCofator(int matriz[][ordemMaxima],int ordem,int linha,int coluna){
+  int matrizCofator[ordemMaxima][ordemMaxima];
   int n = ordem - 1;
   int x = 0;
   int y = 0;
@@ -33,7 +73,7 @@ int calcularCofator(int matriz[][max],int ordem,int linha,int coluna){
   return pow(-1.0, linha + coluna) * det(matrizCofator, n);
 }
 
-int det(int matriz[][max], int ordem){
+int det(int matriz[][ordemMaxima], int ordem){
 
 int determinante = 0;
   // Calcular Determinante
@@ -58,6 +98,31 @@ void mostrarMatriz(int matriz[][20],int ordem){
       }
   printf("\n");
     }
+}
+void receberElementos(){
+  printf("\e[1;1H\e[2J");   
+    int matriz[ordemMaxima][ordemMaxima];
+    int ordem;
+    printf("Digite o número da ordem para encontrar o determinte:\n");
+    printf("2 - Ordem 2\n");
+    printf("3 - Ordem 3\n");
+    printf("4 - Ordem 4\n");
+    scanf("%d",&ordem);
+    printf("\e[1;1H\e[2J"); 
+    if(ordem < 2 || ordem > 4){
+      printf("Entrada Invalida!!\n");
+      menu();
+    }  
+
+    printf("Digite os elementos da Matriz\n");
+    for( int i = 0; i < ordem; i++){
+      for (int j = 0; j < ordem; j++){
+        scanf("%d", &matriz[i][j]);
+      }
+    }
+
+    mostrarMatriz(matriz, ordem);
+    printf("O determinate da matriz é: %d \n", det(matriz,ordem));
 }
 // Calcular o produto de matrizes
 
@@ -98,49 +163,4 @@ void matrizesOrdem(int ordem){
       printf("\n");
     }
 
-}
-bool menu(){
-  int op;
-  printf("Digite o número do que você gostaria de fazer:\n");
-  printf("1 - Multiplica Matriz de ordem 2\n");
-  printf("2 - Multiplica Matriz de Ordem 3\n");
-  printf("3 - Calcular Determinante:\n");
-  printf("4 - Sair:\n");
-  scanf("%d",&op);
-
-  if(op == 1){
-    matrizesOrdem(2);
-  }else if(op == 2){
-    matrizesOrdem(3);
-  }else if(op == 3){
-    int matriz[max][max];
-    int ordem = 2;
-    printf("Digite os elementos da Matriz\n");
-    for( int i = 0; i < ordem; i++){
-      for (int j = 0; j < ordem; j++){
-        scanf("%d", &matriz[i][j]);
-      }
-    }
-
-    mostrarMatriz(matriz, ordem);
-    printf("O determinate da matriz é: %d \n", det(matriz,ordem));
-  } else if(op == 4){
-    return false;
-  }else{
-        printf("\e[1;1H\e[2J");
-        printf("Entrada invalida!!\n");
-        menu();
-    }  
-
-}
-
-int main(void) {
-  printf("\e[1;1H\e[2J");    
-  while(true){
-    if(menu() == false){
-      break;
-    } 
-
-  }
-  return 0;
 }
