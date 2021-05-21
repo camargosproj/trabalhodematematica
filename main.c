@@ -101,9 +101,9 @@ void matrizesOrdem(int ordem){
 }
 bool menu(){
   int op;
-  printf("Digite o que você gostaria de fazer:\n");
-  printf("1 - Matriz de ordem 2\n");
-  printf("2 - Matriz de Ordem 3:\n");
+  printf("Digite o número do que você gostaria de fazer:\n");
+  printf("1 - Multiplica Matriz de ordem 2\n");
+  printf("2 - Multiplica Matriz de Ordem 3\n");
   printf("3 - Calcular Determinante:\n");
   printf("4 - Sair:\n");
   scanf("%d",&op);
