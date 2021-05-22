@@ -1,14 +1,14 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <math.h>
-int ordemMaxima = 20;
+int ordemMaxima = 10;
 
 void mostrarMatriz(int matriz[][ordemMaxima], int ordem);
 int det(int matriz[][ordemMaxima], int ordem);
 int calcularCofator(int matriz[][ordemMaxima], int ordem, int linha, int coluna);
 bool menu();
-void receberElementos();
-void matrizesOrdem(int ordem);
+bool receberElementos();
+bool matrizesOrdem(int ordem);
 
 int main(void) {
   printf("\e[1;1H\e[2J");    
@@ -23,9 +23,10 @@ int main(void) {
 
 bool menu(){
   int op;
+  //printf("\e[1;1H\e[2J");   
   printf("Digite o número do que você gostaria de fazer:\n");
-  printf("1 - Multiplica Matriz de ordem 2\n");
-  printf("2 - Multiplica Matriz de Ordem 3\n");
+  printf("1 - Multiplicar Matrizes de ordem 2\n");
+  printf("2 - Multiplicar Matrizes de Ordem 3\n");
   printf("3 - Calcular Determinante:\n");
   printf("4 - Sair:\n");
   scanf("%d",&op);
@@ -39,7 +40,7 @@ bool menu(){
   } else if(op == 4){
     return false;
   }else{
-        printf("\e[1;1H\e[2J");
+       printf("\e[1;1H\e[2J");
         printf("Entrada invalida!!\n");
         menu();
     }  
@@ -69,24 +70,24 @@ int calcularCofator(int matriz[][ordemMaxima],int ordem,int linha,int coluna){
     }
     
   }
-  // retorna a determinante de cada cofator 
+  // retorna o determinante de cada cofator 
   return pow(-1.0, linha + coluna) * det(matrizCofator, n);
 }
 
 int det(int matriz[][ordemMaxima], int ordem){
 
-int determinante = 0;
-  // Calcular Determinante
-  if (ordem == 1){
-    determinante = matriz[0][0];
-  }else{
-    for (int coluna = 0; coluna < ordem; coluna++)
-    {
-      determinante = determinante + matriz[0][coluna] * calcularCofator(matriz,ordem,0, coluna);
+  int determinante = 0;
+    // Calcula Determinante
+    if (ordem == 1){
+      determinante = matriz[0][0];
+    }else{
+      for (int coluna = 0; coluna < ordem; coluna++)
+      {
+        determinante = determinante + matriz[0][coluna] * calcularCofator(matriz,ordem,0, coluna);
+      }
+      
     }
-    
-  }
-  return determinante;
+    return determinante;
 }
 void mostrarMatriz(int matriz[][20],int ordem){
   printf("A matriz Digitada foi:\n");
@@ -99,7 +100,7 @@ void mostrarMatriz(int matriz[][20],int ordem){
   printf("\n");
     }
 }
-void receberElementos(){
+bool receberElementos(){
   printf("\e[1;1H\e[2J");   
     int matriz[ordemMaxima][ordemMaxima];
     int ordem;
@@ -117,16 +118,26 @@ void receberElementos(){
     printf("Digite os elementos da Matriz\n");
     for( int i = 0; i < ordem; i++){
       for (int j = 0; j < ordem; j++){
+        printf("Digite o elemento [%d] [%d]: ", i+1, j+1);
         scanf("%d", &matriz[i][j]);
       }
     }
 
     mostrarMatriz(matriz, ordem);
     printf("O determinate da matriz é: %d \n", det(matriz,ordem));
+    printf("Deseja fazer mais alguma operação? Digite 1 para Sim e 2 para Não... :\n");
+    int fim;
+    scanf("%d", &fim);
+    if(fim ==1){
+      menu();
+    }else{
+      return false;
+    }
+
 }
 // Calcular o produto de matrizes
 
-void matrizesOrdem(int ordem){
+bool matrizesOrdem(int ordem){
   int matriz1[ordem][ordem];
   int matriz2 [ordem][ordem];
   int resultado[ordem][ordem];
@@ -136,14 +147,14 @@ void matrizesOrdem(int ordem){
 
   for (int i = 0; i < ordem; i++){
     for (int j = 0; j < ordem; j++){
-      printf("Digite o elemento [%d] [%d]: ", i, j);
+      printf("Digite o elemento [%d] [%d]: ", i+1, j+1);
       scanf("%d", &matriz1[i][j]);
     }
   }
   printf("Digite os valores da segunda Matriz\n");
   for (int i = 0; i < ordem; ++i){
     for (int j = 0; j < ordem; ++j){
-      printf("Digite o elemento [%d] [%d]: ", i, j);
+      printf("Digite o elemento [%d] [%d]: ", i+1, j+1);
       scanf("%d", &matriz2[i][j]);
     }
   }
@@ -162,5 +173,12 @@ void matrizesOrdem(int ordem){
  
       printf("\n");
     }
-
+     printf("Deseja fazer mais alguma operação? Digite 1 para Sim e 2 para Não... :\n");
+      int fim;
+      scanf("%d", &fim);
+      if(fim ==1){
+        menu();
+      }else{
+        return false;
+      }
 }
