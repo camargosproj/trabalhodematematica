@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <math.h>
-int ordemMaxima = 10;
+int ordemMaxima = 20;
 
-void mostrarMatriz(int matriz[][ordemMaxima], int ordem);
-int det(int matriz[][ordemMaxima], int ordem);
-int calcularCofator(int matriz[][ordemMaxima], int ordem, int linha, int coluna);
+void mostrarMatriz(double matriz[][ordemMaxima], int ordem);
+double det(double matriz[][ordemMaxima], int ordem);
+double calcularCofator(double matriz[][ordemMaxima], int ordem, int linha, int coluna);
 bool menu();
 bool receberElementos();
 bool matrizesOrdem(int ordem);
@@ -48,8 +48,8 @@ bool menu(){
 }
 
 
-int calcularCofator(int matriz[][ordemMaxima],int ordem,int linha,int coluna){
-  int matrizCofator[ordemMaxima][ordemMaxima];
+double calcularCofator(double matriz[][ordemMaxima],int ordem,int linha,int coluna){
+  double matrizCofator[ordemMaxima][ordemMaxima];
   int n = ordem - 1;
   int x = 0;
   int y = 0;
@@ -74,35 +74,35 @@ int calcularCofator(int matriz[][ordemMaxima],int ordem,int linha,int coluna){
   return pow(-1.0, linha + coluna) * det(matrizCofator, n);
 }
 
-int det(int matriz[][ordemMaxima], int ordem){
+double det(double matriz[][ordemMaxima], int ordem){
 
-  int determinante = 0;
-    // Calcula Determinante
-    if (ordem == 1){
-      determinante = matriz[0][0];
-    }else{
-      for (int coluna = 0; coluna < ordem; coluna++)
-      {
-        determinante = determinante + matriz[0][coluna] * calcularCofator(matriz,ordem,0, coluna);
-      }
-      
+int determinante = 0;
+  // Calcular Determinante
+  if (ordem == 1){
+    determinante = matriz[0][0];
+  }else{
+    for (int coluna = 0; coluna < ordem; coluna++)
+    {
+      determinante = determinante + matriz[0][coluna] * calcularCofator(matriz,ordem,0, coluna);
     }
-    return determinante;
+    
+  }
+  return determinante;
 }
-void mostrarMatriz(int matriz[][20],int ordem){
+void mostrarMatriz(double matriz[][20],int ordem){
   printf("A matriz Digitada foi:\n");
   for (int i = 0; i < ordem; i++)
     {
       for (int j = 0; j < ordem; j++)
       {
-        printf("\t%d", matriz[i][j]);
+        printf("\t%.3lf", matriz[i][j]);
       }
   printf("\n");
     }
 }
 bool receberElementos(){
   printf("\e[1;1H\e[2J");   
-    int matriz[ordemMaxima][ordemMaxima];
+    double matriz[ordemMaxima][ordemMaxima];
     int ordem;
     printf("Digite o número da ordem para encontrar o determinte:\n");
     printf("2 - Ordem 2\n");
@@ -119,12 +119,12 @@ bool receberElementos(){
     for( int i = 0; i < ordem; i++){
       for (int j = 0; j < ordem; j++){
         printf("Digite o elemento [%d] [%d]: ", i+1, j+1);
-        scanf("%d", &matriz[i][j]);
+        scanf("%lf", &matriz[i][j]);
       }
     }
 
     mostrarMatriz(matriz, ordem);
-    printf("O determinate da matriz é: %d \n", det(matriz,ordem));
+    printf("O determinate da matriz é: %.3lf \n", det(matriz,ordem));
     printf("Deseja fazer mais alguma operação? Digite 1 para Sim e 2 para Não... :\n");
     int fim;
     scanf("%d", &fim);
