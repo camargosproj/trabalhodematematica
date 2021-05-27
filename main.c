@@ -23,29 +23,35 @@ int main(void) {
 
 bool menu(){
   int op;
-  //printf("\e[1;1H\e[2J");   
-  printf("Digite o número do que você gostaria de fazer:\n");
-  printf("1 - Multiplicar Matrizes de ordem 2\n");
-  printf("2 - Multiplicar Matrizes de Ordem 3\n");
-  printf("3 - Calcular Determinante:\n");
-  printf("4 - Sair:\n");
+   printf("Este programa multiplica matrizes de ordem 2 e 3 e calcula determinante\n");
+  printf("Aviso!!\nEste programa está na versão 1.0 podendo ainda conter falhas,\nno momento, o programa não pode receber nada além de números\nDigite 0 e pressione Enter para iniciar\n");
   scanf("%d",&op);
+  if(op == 0){
+    printf("\e[1;1H\e[2J");    
 
-  if(op == 1){
-    matrizesOrdem(2);
-  }else if(op == 2){
-    matrizesOrdem(3);
-  }else if(op == 3){
-    receberElementos();
-  } else if(op == 4){
-    return false;
-  }else{
-       printf("\e[1;1H\e[2J");
-        printf("Entrada invalida!!\n");
-        menu();
-    }  
+    printf("Digite o número do que você gostaria de fazer:\n");
+    printf("1 - Multiplicar Matrizes de ordem 2\n");
+    printf("2 - Multiplicar Matrizes de Ordem 3\n");
+    printf("3 - Calcular Determinante:\n");
+    printf("4 - Sair:\n");
+    scanf("%d",&op);
+    if(op == 1){
+      matrizesOrdem(2);
+    }else if(op == 2){
+      matrizesOrdem(3);
+    }else if(op == 3){
+      receberElementos();
+    } else if(op == 4){
+      return false;
+    }else{
+        printf("\e[1;1H\e[2J");
+          printf("Entrada invalida!!\n");
+          menu();
+      }  
 
 }
+  }
+  
 
 
 double calcularCofator(double matriz[][ordemMaxima],int ordem,int linha,int coluna){
